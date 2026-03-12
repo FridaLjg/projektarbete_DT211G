@@ -1,0 +1,21 @@
+/*Variabler för ljust tema*/
+$headerfooter-color: #81a6c6;
+$background-color: #f3e3d0;
+$button-color: #d9d9d9;
+$white: #ffff;
+
+header {
+    background-color: $headerfooter-color;
+}
+
+main {
+    background-color: $background-color;
+
+    button {
+        background-color: $button-color;
+    }
+}
+
+footer {
+    background-color: $headerfooter-color;
+}

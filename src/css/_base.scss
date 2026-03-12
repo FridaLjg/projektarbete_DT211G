@@ -1,0 +1,32 @@
+/*"mixins"*/
+@mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0 auto;
+
+    .container {
+        width: 100%;
+    }
+}
+
+header {
+    @include flex-center();
+}
+
+main {
+    @include flex-center();
+
+    p {
+        text-align: center;
+    }
+
+}
+
+footer {
+    @include flex-center();
+    gap: 50px;
+}

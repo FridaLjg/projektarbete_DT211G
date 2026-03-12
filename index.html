@@ -1,27 +1,43 @@
 <!doctype html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dagens väder</title>
-    <link rel="stylesheet" href="/src/css/main.scss">
-  </head>
-  <body>
-    <header> 
-      <h1>Dagens Väder</h1>
-    </header>
 
-    <main>
-      <section>
-        
-      </section>
-    </main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dagens väder</title>
+  <link rel="stylesheet" href="/src/css/main.scss">
+</head>
 
-    <footer>
-      <p>Projektuppgift DT211G</p>
-      <p>Av: Frida Ljungberg, 2026</p>
-    </footer>
+<body>
+  <!--Header-->
+  <header>
+    <h1>Dagens Väder</h1>
+  </header>
 
-    <script type="module" src="/src/js/main.js"></script>
-  </body>
+  <!--Main-->
+  <main>
+    <section>
+      <p>Vad ska det bli för väder idag?</p>
+      <p>Ta reda på det genom att söka på din plats nedan!</p>
+
+      <!--Sökfält-->
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Sök efter plats...">
+
+        <button id="search-button">Sök</button>
+      </div>
+
+      <iframe id="map"></iframe>
+    </section>
+  </main>
+
+  <!--Footer-->
+  <footer>
+    <p>Projektuppgift DT211G</p>
+    <p>Av: Frida Ljungberg, 2026</p>
+  </footer>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+
 </html>
