@@ -1,0 +1,50 @@
+/*"mixins"*/
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Style för mobil och tablet*/
+@media (max-width: 800px) {
+
+    main {
+        @include flex-center();
+
+        section {
+            width: 100%;
+        }
+
+        .search-box {
+            margin: 35px;
+            @include flex-center();
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        input {
+            width: 200px;
+            height: 30px;
+        }
+
+        button {
+            width: 60px;
+            height: 30px;
+        }
+
+        #map {
+            height: 400px;
+        }
+
+        iframe {
+            width: 95%;
+            height: 100%;
+        }
+    }
+
+    footer {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+}

@@ -1,7 +1,7 @@
 "use strict";
 
 //funktion som bygger karta
-function buildMap(lat, lon, pad = 0.01, layer = 'mapnik') {
+function buildMap(lat, lon, pad = 1, layer = 'mapnik') {
     const left = lon - pad;
     const right = lon + pad;
     const bottom = lat - pad;
