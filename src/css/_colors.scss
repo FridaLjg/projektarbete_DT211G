@@ -2,7 +2,14 @@
 $headerfooter-color: #81a6c6;
 $background-color: #f3e3d0;
 $button-color: #d9d9d9;
+$font-color: #000000;
 $white: #ffff;
+
+/*Variabler för mörkt tema*/
+$headerfooter-color-dark: #184368;
+$background-color-dark: #524e49;
+$button-color-dark: #000000;
+$font-color-dark: #c5c3c3;
 
 header {
     background-color: $headerfooter-color;
@@ -18,4 +25,32 @@ main {
 
 footer {
     background-color: $headerfooter-color;
+}
+
+/*Mediaquery för mörkt tema*/
+@media (prefers-color-scheme: dark) {
+
+    header {
+        background-color: $headerfooter-color-dark;
+        color: $font-color-dark;
+
+    }
+
+    main {
+        background-color: $background-color-dark;
+        color: $font-color-dark;
+
+        button {
+            background-color: $button-color-dark;
+            color: $font-color-dark;
+        }
+    }
+
+    footer {
+        background-color: $headerfooter-color-dark;
+        color: $font-color-dark;
+    }
+
+
+
 }
