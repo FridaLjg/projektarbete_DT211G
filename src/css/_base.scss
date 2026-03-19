@@ -1,3 +1,6 @@
+/*Variabler*/
+$font-stack: Verdana, Geneva, Tahoma, sans-serif;
+
 /*"mixins"*/
 @mixin flex-center() {
     display: flex;
@@ -10,6 +13,7 @@ body {
 
     .container {
         width: 100%;
+        font-family: $font-stack;
     }
 }
 
@@ -20,13 +24,43 @@ header {
 main {
     @include flex-center();
 
-    p {
-        text-align: center;
+    section {
+        width: 75%;
+        @include flex-center();
+        flex-direction: column;
     }
 
+    p {
+        text-align: center;
+        font-size: large;
+    }
+
+    .search-box {
+        margin: 35px;
+    }
+
+    input {
+        width: 200px;
+        height: 30px;
+    }
+
+    button {
+        width: 60px;
+        height: 30px;
+    }
+
+    iframe {
+        width: 50%;
+        height: 500px;
+    }
+
+    #weather {
+        font-size: large;
+    }
 }
 
 footer {
     @include flex-center();
     gap: 50px;
+    font-weight: 800;
 }
