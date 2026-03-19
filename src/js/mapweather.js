@@ -22,6 +22,12 @@ async function loadData(city) {
         const response = await fetch(urlMap.toString());
         const data = await response.json();
 
+        if (!data.results || data.results.length === 0) {
+            document.getElementById("weather").innerHTML =
+                "<p><strong>Fel:</strong> Platsen hittades inte.</p>";
+            return;
+        }
+
         const location = data.results?.[0];
         const lat = location.latitude;
         const lon = location.longitude;
