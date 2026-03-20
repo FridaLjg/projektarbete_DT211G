@@ -1,10 +1,10 @@
 .cloud {
     position: fixed;
+    top: 10%;
     left: 0%;
     width: 100%;
     opacity: 0.25;
     animation: moveCloud 20s linear infinite;
-
 }
 
 @keyframes moveCloud {

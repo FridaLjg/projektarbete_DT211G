@@ -35,6 +35,10 @@ async function loadData(city) {
         const frame = document.getElementById("map");
         frame.src = buildMap(lat, lon);
 
+        // visa ikarta
+        frame.classList.remove("hidden");
+        document.getElementById("weather").classList.remove("hidden");
+
         //Hämtar väder
         getWeather(lat, lon);
 
