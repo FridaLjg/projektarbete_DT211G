@@ -24,7 +24,7 @@ async function loadData(city) {
 
         if (!data.results || data.results.length === 0) {
             document.getElementById("weather").innerHTML =
-                "<p><strong>Fel:</strong> Platsen hittades inte.</p>";
+                "<p><strong>Error:</strong> Platsen hittades inte. Testa igen!</p>";
             return;
         }
 
