@@ -1,0 +1,17 @@
+.cloud {
+    position: fixed;
+    left: 0%;
+    width: 100%;
+    opacity: 0.25;
+    animation: moveCloud 20s linear infinite;
+
+}
+
+@keyframes moveCloud {
+0% {
+    transform: translateX(0%);
+}
+100% {
+    transform: translate(100%);
+}
+}
