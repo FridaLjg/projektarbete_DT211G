@@ -1,6 +1,13 @@
 "use strict";
 
-//funktion som bygger karta
+/**
+ * Gör en URL till OpenStreetMap.
+ * @param {number} lat - Latitud
+ * @param {number} lon - Longitud
+ * @param {number} [pad=0.01] - Marginal runt koordinaten
+ * @returns {string} - URL
+ *
+*/
 function buildMap(lat, lon, pad = 1, layer = 'mapnik') {
     const left = lon - pad;
     const right = lon + pad;
@@ -11,7 +18,12 @@ function buildMap(lat, lon, pad = 1, layer = 'mapnik') {
     return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=${layer}&marker=${marker}`;
 }
 
-//funktion som hämtar koordinater och uppdaterar karta
+/**
+ * Funktion som hämtar koordinater och uppdaterar kartan.
+ * @async
+ * @param {string} city - Stadens namn
+ * @returns {Promise<void>} - Fullföljs när kartan är uppdaterad
+ */
 async function loadData(city) {
     const urlMap = new URL("https://geocoding-api.open-meteo.com/v1/search");
     urlMap.searchParams.set("name", city);
@@ -47,7 +59,14 @@ async function loadData(city) {
     }
 }
 
-//funktion som hämtar väder
+/**
+ * Funktion som hämtar nuvarande väder
+ *
+ * @async
+ * @param {number} lat - Latitud
+ * @param {number} lon - Longitud
+ * @returns {Promise<void>}
+ */
 async function getWeather(lat, lon) {
     const urlWeather = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode`;
 
@@ -70,7 +89,12 @@ async function getWeather(lat, lon) {
     }
 }
 
-//funktion som tolkar väderkod
+/**
+ * Funktion som tolkar väderkoder returnerar beskrivning av kod.
+ *
+ * @param {number} code - Väderkoden
+ * @returns {string} Beskrivning av vädret
+ */
 function interpretWeatherCode(code) {
     const weatherCodes = {
         0: "Klar himmel",
@@ -106,8 +130,9 @@ function interpretWeatherCode(code) {
     return weatherCodes[code];
 }
 
-
-//Händelsehanterare
+/**
+ * Händelsehanterare
+ */
 document.addEventListener("DOMContentLoaded", async () => {
     const input = document.getElementById("search");
     const button = document.getElementById("search-button");
