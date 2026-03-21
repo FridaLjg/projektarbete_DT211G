@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: mapweather.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: mapweather.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+
+/**
+ * Gör en URL till OpenStreetMap.
+ * @param {number} lat - Latitud
+ * @param {number} lon - Longitud
+ * @param {number} [pad=0.01] - Marginal runt koordinaten
+ * @returns {string} - URL
+ *
+*/
+function buildMap(lat, lon, pad = 1, layer = 'mapnik') {
+    const left = lon - pad;
+    const right = lon + pad;
+    const bottom = lat - pad;
+    const top = lat + pad;
+    const bbox = [left, bottom, right, top].join('%2C');
+    const marker = `${lat}%2C${lon}`;
+    return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=${layer}&amp;marker=${marker}`;
+}
+
+/**
+ * Funktion som hämtar koordinater och uppdaterar kartan.
+ * @async
+ * @param {string} city - Stadens namn
+ * @returns {Promise&lt;void>} - Fullföljs när kartan är uppdaterad
+ */
+async function loadData(city) {
+    const urlMap = new URL("https://geocoding-api.open-meteo.com/v1/search");
+    urlMap.searchParams.set("name", city);
+    urlMap.searchParams.set("count", "1");
+
+    //Anropa och läs ut data
+    try {
+        const response = await fetch(urlMap.toString());
+        const data = await response.json();
+
+        if (!data.results || data.results.length === 0) {
+            document.getElementById("weather").innerHTML =
+                "&lt;p>&lt;strong>Error:&lt;/strong> Platsen hittades inte. Testa igen!&lt;/p>";
+            return;
+        }
+
+        const location = data.results?.[0];
+        const lat = location.latitude;
+        const lon = location.longitude;
+
+        const frame = document.getElementById("map");
+        frame.src = buildMap(lat, lon);
+
+        // visa karta
+        frame.classList.remove("hidden");
+        document.getElementById("weather").classList.remove("hidden");
+
+        //Hämtar väder
+        getWeather(lat, lon);
+
+    } catch (error) {
+        console.error("Fel " + error);
+    }
+}
+
+/**
+ * Funktion som hämtar nuvarande väder
+ *
+ * @async
+ * @param {number} lat - Latitud
+ * @param {number} lon - Longitud
+ * @returns {Promise&lt;void>}
+ */
+async function getWeather(lat, lon) {
+    const urlWeather = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&amp;longitude=${lon}&amp;current=temperature_2m,weathercode`;
+
+    try {
+        const response = await fetch(urlWeather);
+        const data = await response.json();
+
+        const temp = data.current.temperature_2m;
+        const code = data.current.weathercode;
+        const weatherText = interpretWeatherCode(code);
+
+
+        document.getElementById("weather").innerHTML = `
+        &lt;p>&lt;strong>Just nu är det:&lt;/strong> ${weatherText}&lt;/p>           
+        &lt;p>&lt;strong>Temperatur:&lt;/strong> ${temp} °C&lt;/p>`;
+    }
+
+    catch (error) {
+        console.error("Fel " + error);
+    }
+}
+
+/**
+ * Funktion som tolkar väderkoder returnerar beskrivning av kod.
+ *
+ * @param {number} code - Väderkoden
+ * @returns {string} Beskrivning av vädret
+ */
+function interpretWeatherCode(code) {
+    const weatherCodes = {
+        0: "Klar himmel",
+        1: "Mestadels klart",
+        2: "Delvis molnigt",
+        3: "Mulet",
+        45: "Dimma",
+        48: "Dimma",
+        51: "Duggregn",
+        53: "Duggregn",
+        55: "Duggregn",
+        56: "Underkylt duggregn",
+        57: "Underkylt duggregn",
+        61: "Lätt regn",
+        63: "Måttligt regn",
+        65: "Kraftigt regn",
+        66: "Underkylt regn",
+        67: "Underkylt regn",
+        71: "Lätt snöfall",
+        73: "Måttligt snöfall",
+        75: "Kraftigt snöfall",
+        77: "Snö",
+        80: "Lätt skur",
+        81: "Måttligt skur",
+        82: "Kraftig skur",
+        85: "Lätta snöbyar",
+        86: "Kraftiga snöbyar",
+        95: "Åska",
+        96: "Åska med lätt hagel",
+        99: "Åska med kraftigt hagel"
+    };
+
+    return weatherCodes[code];
+}
+
+/**
+ * Händelsehanterare
+ */
+document.addEventListener("DOMContentLoaded", async () => {
+    const input = document.getElementById("search");
+    const button = document.getElementById("search-button");
+
+    button.addEventListener('click', () => {
+        const city = input.value;
+
+        loadData(city);
+    })
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#buildMap">buildMap</a></li><li><a href="global.html#getWeather">getWeather</a></li><li><a href="global.html#interpretWeatherCode">interpretWeatherCode</a></li><li><a href="global.html#loadData">loadData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Sat Mar 21 2026 15:07:02 GMT+0100 (centraleuropeisk normaltid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
