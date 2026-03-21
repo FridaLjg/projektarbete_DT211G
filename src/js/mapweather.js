@@ -35,7 +35,7 @@ async function loadData(city) {
         const frame = document.getElementById("map");
         frame.src = buildMap(lat, lon);
 
-        // visa ikarta
+        // visa karta
         frame.classList.remove("hidden");
         document.getElementById("weather").classList.remove("hidden");
 

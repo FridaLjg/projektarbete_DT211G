@@ -1,7 +1,8 @@
+/*Animation för moln*/
 .cloud {
     position: fixed;
     top: 10%;
-    left: 0%;
+    left: -10%;
     width: 100%;
     opacity: 0.25;
     animation: moveCloud 20s linear infinite;
@@ -14,4 +15,28 @@
 100% {
     transform: translate(100%);
 }
+}
+
+
+/*Animation för text*/
+.text-animation {
+    transform: translateY(0) scale(1);
+    color: black;
+    transition: transform 0.7s ease-out, color 1s ease-out;
+
+    &:hover {
+        animation: text-zoom 0.7s ease-out;
+        transform: scale(1.5);
+        color: rgb(88, 21, 21);
+    }
+}
+
+@keyframes text-zoom {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.5);
+    }
 }
